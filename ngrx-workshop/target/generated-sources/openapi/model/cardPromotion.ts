@@ -12,13 +12,11 @@
 
 
 
-export interface UserProfile { 
-    ["firstName"]: string;
-    ["lastName"]: string;
-    ["streetAddress"]: string;
-    ["city"]: string;
-    ["state"]: string;
-    ["zip"]: number;
-    ["phone"]?: number;
+export interface CardPromotion { 
+    ["id"]: number;
+    ["name"]: string;
+    ["heading"]: string;
+    ["description"]: string;
+    ["image"]?: string;
 }
 
