@@ -3,6 +3,6 @@ export * from './variables';
 export * from './configuration';
 export * from './api.module';
 
-export * from './api/default.service';
+export * from './api/profile.service';
 
-export * from './api/default.service.mocks';
+export * from './api/profile.service.mocks';
