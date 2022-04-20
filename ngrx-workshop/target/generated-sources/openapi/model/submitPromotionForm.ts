@@ -22,6 +22,6 @@ export interface SubmitPromotionForm {
     ["ssn"]: number;
     ["maritalStatus"]: string;
     ["employmentStatus"]: string;
-    ["address"]?: UserAddress;
+    ["address"]: UserAddress;
 }
 

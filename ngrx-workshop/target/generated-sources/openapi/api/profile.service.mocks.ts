@@ -27,6 +27,22 @@ export const ProfileHttpServiceGetUserProfileMocksProvider: Provider = createMoc
                 },
     ]
 }]);
+/**
+* Mocks provider for /users/me/promotion URL pattern
+*/
+export const ProfileHttpServiceGetUserPromotionsMocksProvider: Provider = createMocks([{
+        urlPattern: "/users/me/promotion",
+        method: "GET",
+        responses: [
+                {
+                    status: 200,
+                    body: {
+  "registered" : false,
+  "promotions" : [ ]
+}
+                },
+    ]
+}]);
 
 export const ProfileHttpServiceMocksProvider: Provider = createMocks(
     [
@@ -50,6 +66,20 @@ export const ProfileHttpServiceMocksProvider: Provider = createMocks(
     "state" : "GA",
     "zip" : 30361
   }
+}
+            },
+    ]
+},
+    {
+        urlPattern: "/users/me/promotion",
+        method: "GET",
+        responses: [
+
+            {
+                status: 200,
+                body: {
+  "registered" : false,
+  "promotions" : [ ]
 }
             },
     ]

@@ -18,20 +18,14 @@ import { HttpClient, HttpHeaders, HttpParams,
 import { CustomHttpParameterCodec }                          from '../encoder';
 import { Observable }                                        from 'rxjs';
 
-import { AcceptCardPromotion } from '../model/models';
-import { CardPromotion } from '../model/models';
+import { Promotion } from '../model/models';
 import { SubmitPromotionForm } from '../model/models';
 
 import { NGRX_BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
 import { NgrxConfiguration }                                     from '../configuration';
 
 
-export interface AcceptCardPromotionRequestParams {
-    /** Optional description in *Markdown* */
-    ["acceptCardPromotion"]: AcceptCardPromotion;
-}
-
-export interface SubmitCardPromotionDataRequestParams {
+export interface SubmitPromotionFormRequestParams {
     /** Optional description in *Markdown* */
     ["submitPromotionForm"]: SubmitPromotionForm;
 }
@@ -40,7 +34,7 @@ export interface SubmitCardPromotionDataRequestParams {
 @Injectable({
   providedIn: 'root'
 })
-export class CardPromotionHttpService {
+export class PromotionHttpService {
 
     protected basePath = '';
     public defaultHeaders = new HttpHeaders();
@@ -98,82 +92,18 @@ export class CardPromotionHttpService {
     }
 
     /**
-     * Accept 1 card promotion
+     * Submit form data to return promotions
      * @param requestParameters
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public acceptCardPromotion(requestParameters: AcceptCardPromotionRequestParams, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
-    public acceptCardPromotion(requestParameters: AcceptCardPromotionRequestParams, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
-    public acceptCardPromotion(requestParameters: AcceptCardPromotionRequestParams, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
-    public acceptCardPromotion(requestParameters: AcceptCardPromotionRequestParams, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
-        const _acceptCardPromotion = requestParameters["acceptCardPromotion"];
-        if (_acceptCardPromotion === null || _acceptCardPromotion === undefined) {
-            throw new Error('Required parameter acceptCardPromotion was null or undefined when calling acceptCardPromotion.');
-        }
-
-        let headers = this.defaultHeaders;
-
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        // to determine the Content-Type header
-        const consumes: string[] = [
-            'application/json'
-        ];
-        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
-        if (httpContentTypeSelected !== undefined) {
-            headers = headers.set('Content-Type', httpContentTypeSelected);
-        }
-
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
-        return this.httpClient.post<any>(`${this.configuration.basePath}/card-promotion/accept`,
-            _acceptCardPromotion,
-            {
-                responseType: <any>responseType,
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
-    }
-
-    public acceptCardPromotionUrl(requestParameters: AcceptCardPromotionRequestParams): string {
-        const _acceptCardPromotion = requestParameters["acceptCardPromotion"];
-        if (_acceptCardPromotion === null || _acceptCardPromotion === undefined) {
-            throw new Error('Required parameter acceptCardPromotion was null or undefined when calling acceptCardPromotion.');
-        }
-        return `${this.configuration.basePath}/card-promotion/accept`;
-    }
-
-    /**
-     * Submit form data to return card promotions
-     * @param requestParameters
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public submitCardPromotionData(requestParameters: SubmitCardPromotionDataRequestParams, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<CardPromotion>;
-    public submitCardPromotionData(requestParameters: SubmitCardPromotionDataRequestParams, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<CardPromotion>>;
-    public submitCardPromotionData(requestParameters: SubmitCardPromotionDataRequestParams, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<CardPromotion>>;
-    public submitCardPromotionData(requestParameters: SubmitCardPromotionDataRequestParams, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public submitPromotionForm(requestParameters: SubmitPromotionFormRequestParams, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Array<Promotion>>;
+    public submitPromotionForm(requestParameters: SubmitPromotionFormRequestParams, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Array<Promotion>>>;
+    public submitPromotionForm(requestParameters: SubmitPromotionFormRequestParams, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Array<Promotion>>>;
+    public submitPromotionForm(requestParameters: SubmitPromotionFormRequestParams, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
         const _submitPromotionForm = requestParameters["submitPromotionForm"];
         if (_submitPromotionForm === null || _submitPromotionForm === undefined) {
-            throw new Error('Required parameter submitPromotionForm was null or undefined when calling submitCardPromotionData.');
+            throw new Error('Required parameter submitPromotionForm was null or undefined when calling submitPromotionForm.');
         }
 
         let headers = this.defaultHeaders;
@@ -205,7 +135,7 @@ export class CardPromotionHttpService {
             responseType = 'text';
         }
 
-        return this.httpClient.post<CardPromotion>(`${this.configuration.basePath}/card-promotion/submit`,
+        return this.httpClient.post<Array<Promotion>>(`${this.configuration.basePath}/promotion/submit`,
             _submitPromotionForm,
             {
                 responseType: <any>responseType,
@@ -217,12 +147,12 @@ export class CardPromotionHttpService {
         );
     }
 
-    public submitCardPromotionDataUrl(requestParameters: SubmitCardPromotionDataRequestParams): string {
+    public submitPromotionFormUrl(requestParameters: SubmitPromotionFormRequestParams): string {
         const _submitPromotionForm = requestParameters["submitPromotionForm"];
         if (_submitPromotionForm === null || _submitPromotionForm === undefined) {
-            throw new Error('Required parameter submitPromotionForm was null or undefined when calling submitCardPromotionData.');
+            throw new Error('Required parameter submitPromotionForm was null or undefined when calling submitPromotionForm.');
         }
-        return `${this.configuration.basePath}/card-promotion/submit`;
+        return `${this.configuration.basePath}/promotion/submit`;
     }
 
 }
