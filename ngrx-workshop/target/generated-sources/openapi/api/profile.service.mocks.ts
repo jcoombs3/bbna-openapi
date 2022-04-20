@@ -12,12 +12,17 @@ export const ProfileHttpServiceGetUserProfileMocksProvider: Provider = createMoc
                     status: 200,
                     body: {
   "firstName" : "Jane",
+  "middleName" : "Ann",
   "lastName" : "Doe",
-  "streetAddress" : "1201 Peachtree Street NE",
-  "city" : "Atlanta",
-  "state" : "GA",
-  "zip" : 30361,
-  "phone" : 4048792261
+  "email" : "email@backbase.com",
+  "phone" : 4048792261,
+  "ssn" : 1234,
+  "address" : {
+    "streetAddress" : "1201 Peachtree Street NE",
+    "city" : "Atlanta",
+    "state" : "GA",
+    "zip" : 30361
+  }
 }
                 },
     ]
@@ -34,12 +39,17 @@ export const ProfileHttpServiceMocksProvider: Provider = createMocks(
                 status: 200,
                 body: {
   "firstName" : "Jane",
+  "middleName" : "Ann",
   "lastName" : "Doe",
-  "streetAddress" : "1201 Peachtree Street NE",
-  "city" : "Atlanta",
-  "state" : "GA",
-  "zip" : 30361,
-  "phone" : 4048792261
+  "email" : "email@backbase.com",
+  "phone" : 4048792261,
+  "ssn" : 1234,
+  "address" : {
+    "streetAddress" : "1201 Peachtree Street NE",
+    "city" : "Atlanta",
+    "state" : "GA",
+    "zip" : 30361
+  }
 }
             },
     ]

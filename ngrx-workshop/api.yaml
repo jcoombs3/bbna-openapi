@@ -20,12 +20,17 @@ paths:
                   value:
                     {
                       "firstName": "Jane",
+                      "middleName": "Ann",
                       "lastName": "Doe",
-                      "streetAddress": "1201 Peachtree Street NE",
-                      "city": "Atlanta",
-                      "state": "GA",
-                      "zip": 30361,
-                      "phone": 4048792261
+                      "email": "email@backbase.com",
+                      "phone": 4048792261,
+                      "ssn": 1234,
+                      "address": {
+                        "streetAddress": "1201 Peachtree Street NE",
+                        "city": "Atlanta",
+                        "state": "GA",
+                        "zip": 30361
+                      }
                     }
               schema:
                 $ref: '#/components/schemas/UserProfile'
@@ -35,6 +40,13 @@ paths:
         - cardPromotion
       operationId: submitCardPromotionData
       summary: Submit form data to return card promotions
+      requestBody:
+        description: Optional description in *Markdown*
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SubmitPromotionForm'
       responses:
         '200':
           description: |-
@@ -98,26 +110,74 @@ components:
       type: object
       required:
         - firstName
+        - middleName
         - lastName
-        - streetAddress
+        - email
+        - phone
+        - ssn
+      properties:
+        firstName:
+          type: string
+        middleName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        phone:
+          type: number
+        ssn:
+          type: number
+        address:
+          $ref: '#/components/schemas/UserAddress'
+    UserProfileAddress:
+      type: object
+      required:
+        - addressStreet
         - city
         - state
         - zip
       properties:
-        firstName:
+        addressStreet:
           type: string
-        lastName:
-          type: string
-        streetAddress:
+        buildingLot:
           type: string
         city:
           type: string
         state:
           type: string
-        zip:
+        zip: 
           type: number
+    SubmitPromotionForm:
+      type: object
+      required:
+        - firstName
+        - middleName
+        - lastName
+        - email
+        - phone
+        - ssn
+        - maritalStatus
+        - employmentStatus
+      properties:
+        firstName:
+          type: string
+        middleName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
         phone:
           type: number
+        ssn:
+          type: number
+        maritalStatus:
+          type: string
+        employmentStatus:
+          type: string
+        address:
+          $ref: '#/components/schemas/UserAddress'
     CardPromotion:
       type: object
       required:
